@@ -1,0 +1,11 @@
+import axios from "axios";
+const api = axios.create({ baseURL: import.meta.env.VITE_API_URL || "" });
+export const getCategories = () => api.get("/api/places/categories").then((r) => r.data);
+export const getNearby = (params) => api.get("/api/places/nearby", { params }).then((r) => r.data);
+export const getPlace = (id) => api.get(`/api/places/${id}`).then((r) => r.data);
+export const createBooking = (payload) => api.post("/api/bookings", payload).then((r) => r.data);
+export const getBookings = (placeId) => api.get("/api/bookings", { params: placeId ? { placeId } : {} }).then((r) => r.data);
+export const updateBooking = (id, status) => api.patch(`/api/bookings/${id}`, { status }).then((r) => r.data);
+export const verifyPlace = (placeId, formData) => api.post(`/api/verify/${placeId}`, formData).then((r) => r.data);
+export const simulateWhatsApp = (placeId, reply) => api.post("/api/whatsapp/simulate", { placeId, reply }).then((r) => r.data);
+export default api;
